@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.lzyang.fyptest.MainActivity"
+    tools:showIn="@layout/app_bar_main"
+    android:background="#FFFFFF">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/ess_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <ImageView
+        android:background="@android:color/transparent"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        app:srcCompat="@drawable/circlered"/>
+
+    <ImageButton
+        android:background="@android:color/transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:paddingRight="35dp"
+        android:layout_marginBottom="55dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        app:srcCompat="@drawable/ic_001_exclamation_mark" />
+
+    <ImageButton
+        android:background="@android:color/transparent"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:scaleType="centerCrop"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        app:srcCompat="@drawable/ic_002_message" />
+
+    <Button
+        android:background="@android:color/transparent"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:onClick="request_help"/>
+
+</RelativeLayout>

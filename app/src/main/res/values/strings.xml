@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Emergency Support System</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_info">Help Information</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="emergency_arrays">
+        <item>Car accident</item>
+        <item>Injuries</item>
+        <item>Car Failure</item>
+        <item>Fire</item>
+        <item>Other</item>
+    </string-array>
+</resources>
