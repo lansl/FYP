@@ -24,6 +24,7 @@ import static com.example.lzyang.fyptest.Entity.Storage_Emergency_Cards.emergenc
 import static com.example.lzyang.fyptest.ServerModule.MJobScheduler.emergencyCards_recyclerAdapter;
 
 //i have change my new sentence
+//i have deleted this
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
