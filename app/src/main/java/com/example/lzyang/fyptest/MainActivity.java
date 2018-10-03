@@ -23,6 +23,9 @@ import me.tatarka.support.job.JobScheduler;
 import static com.example.lzyang.fyptest.Entity.Storage_Emergency_Cards.emergencyCards_arrayList;
 import static com.example.lzyang.fyptest.ServerModule.MJobScheduler.emergencyCards_recyclerAdapter;
 
+//here i change//
+//can u see me?
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public RecyclerView emergencyCards_recyclerView;
