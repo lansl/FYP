@@ -25,6 +25,7 @@ import static com.example.lzyang.fyptest.ServerModule.MJobScheduler.emergencyCar
 
 //i have change my new sentence
 //hi
+//hihi
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
