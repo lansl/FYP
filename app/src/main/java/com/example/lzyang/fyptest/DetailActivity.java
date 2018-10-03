@@ -35,9 +35,6 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import java.util.ArrayList;
 import java.util.List;
 
-// edited by KCH
-import java.util.Map;
-
 import static com.example.lzyang.fyptest.Entity.Storage_Emergency_Cards.emergencyCards_arrayList;
 import static com.example.lzyang.fyptest.LoginActivity.PREFS_NAME;
 
