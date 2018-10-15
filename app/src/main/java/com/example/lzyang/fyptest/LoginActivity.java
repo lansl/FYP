@@ -35,10 +35,12 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse {
         loginid = (EditText) findViewById(R.id.loginid);
         loginpassword = (EditText) findViewById(R.id.loginpass);
 
-        mProgress =new ProgressDialog(this);
-        String titleId="Signing in...";
-        mProgress.setTitle(titleId);
-        mProgress.setMessage("Please Wait...");
+
+            mProgress = new ProgressDialog(this);
+            String titleId = "Signing in...";
+            mProgress.setTitle(titleId);
+            mProgress.setMessage("Please Wait...");
+
 
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         if (settings.getString("logged", "").toString().equals("logged")) {
@@ -118,14 +120,17 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse {
             dialog.setTitle("Invalid Student ID or Password !!");
             dialog.setMessage("Please try enter the correct user ID and Password ! Thank You " );
 
+
             dialog.setPositiveButton("OK , Got it !", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
                 }
             });
+
             final AlertDialog alert = dialog.create();
             alert.show();
+
         }
     }
 }

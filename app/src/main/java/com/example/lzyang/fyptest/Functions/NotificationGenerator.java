@@ -11,6 +11,7 @@ import android.os.Vibrator;
 import android.support.v7.app.NotificationCompat;
 
 import com.example.lzyang.fyptest.MainActivity;
+import com.example.lzyang.fyptest.RequestActivity;
 import com.example.lzyang.fyptest.R;
 
 /**
@@ -34,7 +35,7 @@ public class NotificationGenerator {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        Intent notifyIntent = new Intent(context, MainActivity.class);
+        Intent notifyIntent = new Intent(context, RequestActivity.class);
 
         notifyIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
