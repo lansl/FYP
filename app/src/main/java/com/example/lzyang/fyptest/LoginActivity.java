@@ -81,6 +81,11 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse {
         view.getContext().startActivity(register_page);
     }
 
+    public void OnExit(View v){
+        finish();
+        System.exit(0);
+    }
+
     public void OnLogin(View view) {
         userid = loginid.getText().toString();
         userpass = loginpassword.getText().toString();
@@ -124,7 +129,10 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse {
             dialog.setPositiveButton("OK , Got it !", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+
                     dialog.dismiss();
+
+                    mProgress.dismiss();
                 }
             });
 
