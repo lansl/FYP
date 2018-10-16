@@ -122,6 +122,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
+                    mProgress.dismiss();
                 }
             });
             final AlertDialog alert = dialog.create();
