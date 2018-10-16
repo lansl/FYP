@@ -13,6 +13,7 @@ import android.support.v7.app.NotificationCompat;
 import com.example.lzyang.fyptest.MainActivity;
 import com.example.lzyang.fyptest.RequestActivity;
 import com.example.lzyang.fyptest.R;
+import com.example.lzyang.fyptest.RequestActivity;
 
 /**
  * Created by Lz-Yang on 18/11/2017.
