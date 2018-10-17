@@ -113,8 +113,6 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse {
             editor.putString("userid",userid);
             editor.commit();
 
-
-
             Toast.makeText(LoginActivity.this,userid,Toast.LENGTH_LONG).show();
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             mProgress.dismiss();
@@ -143,4 +141,6 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse {
         }
     }
 }
+
+
 
