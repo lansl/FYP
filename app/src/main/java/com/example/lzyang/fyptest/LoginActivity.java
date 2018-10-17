@@ -132,6 +132,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse {
 
                     dialog.dismiss();
 
+                    // asd
                     mProgress.dismiss();
                 }
             });
