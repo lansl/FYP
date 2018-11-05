@@ -2,7 +2,9 @@ package com.example.lzyang.fyptest;
 
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,8 +15,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.lzyang.fyptest.Functions.ProcessingEmergencyCard;
+import com.example.lzyang.fyptest.Functions.Utility;
+import com.example.lzyang.fyptest.Map.LocationReceiver;
 import com.example.lzyang.fyptest.ServerModule.MJobScheduler;
 
 import me.tatarka.support.job.JobInfo;
@@ -23,8 +29,6 @@ import me.tatarka.support.job.JobScheduler;
 import static com.example.lzyang.fyptest.Entity.Storage_Emergency_Cards.emergencyCards_arrayList;
 import static com.example.lzyang.fyptest.ServerModule.MJobScheduler.emergencyCards_recyclerAdapter;
 
-//i have change my new sentence
-// hi
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -33,6 +37,9 @@ public class MainActivity extends AppCompatActivity
     private static final int JOB_ID = 100;
     private JobScheduler jobScheduler;
     private JobInfo jobInfo;
+    private LocationReceiver locationReceiver;
+    private double[] GPS_location = new double[2];
+    private double loc1, loc2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +48,12 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_profile);
         setSupportActionBar(toolbar);
+        checkLoc();
+
+        //Get GPS location-----------------------------------------------------------
+        locationReceiver = new LocationReceiver(this);
+        locationReceiver.initGPSlocation();
+        GPS_location = locationReceiver.getGPSLocation();
 
 
 
@@ -57,7 +70,7 @@ public class MainActivity extends AppCompatActivity
         jobScheduler.schedule(jobInfo);
         System.out.println("Pass");
 
-
+/*
 //--------------------------------------------------------------------------------------------------
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -73,6 +86,45 @@ public class MainActivity extends AppCompatActivity
         }
         emergencyCards_recyclerView.setAdapter(emergencyCards_recyclerAdapter);
 //        System.out.println("Run emergencyCards_recyclerView finished");
+        */
+
+    }
+
+    public void checkLoc(){
+        do{
+            //--------------------------------------------------------------------------------------------------
+            locationReceiver = new LocationReceiver(this);
+            locationReceiver.initGPSlocation();
+            GPS_location = locationReceiver.getGPSLocation();
+
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            navigationView.setNavigationItemSelectedListener(this);
+
+            emergencyCards_recyclerView = (RecyclerView)findViewById(R.id.ess_recycler);
+            emergencyCards_recyclerView.setHasFixedSize(true);
+            emergencyCards_recyclerView.setLayoutManager(new GridLayoutManager(this,1));
+
+            ProcessingEmergencyCard processingEmergencyCard = new ProcessingEmergencyCard(this);
+            processingEmergencyCard.execute();
+            if(!emergencyCards_arrayList.get_arrayList().isEmpty()){
+                emergencyCards_recyclerAdapter.setArrayList(emergencyCards_arrayList.get_arrayList());
+            }
+            emergencyCards_recyclerView.setAdapter(emergencyCards_recyclerAdapter);
+//        System.out.println("Run emergencyCards_recyclerView finished");
+        }while(GPS_location[0] >= 101.7199 && GPS_location[0] <= 101.7390 && GPS_location[1] >= 3.2072 && GPS_location[1] <= 3.2253);
+    }
+
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case LocationReceiver.MY_PERMISSIONS_REQUEST_LOCATION:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    locationReceiver.configureButton();
+                    return;
+                } else {
+                    //code for deny
+                }
+                break;
+        }
     }
 
     @Override
@@ -159,7 +211,22 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void request_help(View view) {
-        Intent intent = new Intent(this, RequestActivity.class);
-        this.startActivity(intent);
+        //This is for 1km//
+        //GPS_location[0] >= 101.7199 && GPS_location[0] <= 101.7390 && GPS_location[1] >= 3.2072 && GPS_location[1] <= 3.2253//
+        //Others
+        //GPS_location[0] > 100.6109 && GPS_location[0] < 101.7290 && GPS_location[1] > 3.00 && GPS_location[1] < 3.2253//
+
+        if(GPS_location[0] > 100.6109 && GPS_location[0] < 101.7290 && GPS_location[1] > 3.00 && GPS_location[1] < 3.2253){
+            //pass
+            Intent intent = new Intent(this, RequestActivity.class);
+            this.startActivity(intent);
+            loc1 = GPS_location[0];
+            loc2 = GPS_location[1];
+        }else {
+            Toast.makeText(this, "You are out of support coverage.",
+                    Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Your Longtitude is " + GPS_location[0],  Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Your Latitude is " + GPS_location[1],  Toast.LENGTH_SHORT).show();
+        }
     }
 }

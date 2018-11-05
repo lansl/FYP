@@ -5,7 +5,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -13,10 +15,12 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+import android.graphics.drawable.VectorDrawable;
 
 import com.example.lzyang.fyptest.Database.AsyncResponse;
 import com.example.lzyang.fyptest.Database.BackgroundWorker;
@@ -90,13 +94,26 @@ public class RegisterActivity extends AppCompatActivity implements AsyncResponse
         String img_bytes = Base64.encodeToString(getBytesFromBitmap(ess_inserted_image), Base64.DEFAULT);
 
 
-        if (userid.isEmpty() || userpass.isEmpty() || username.isEmpty()) {
+        if (userid.isEmpty() || userpass.isEmpty() || username.isEmpty() || insert_image.getDrawable() == null) {
             if (userid.isEmpty()) {
                 editid.setError("Please fill up this");
             } else if (username.isEmpty()) {
                 editname.setError("Please fill up this");
             } else if (userpass.isEmpty()) {
                 editpassword.setError("Please fill up this");
+            }else if (insert_image.getDrawable() == null) {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(RegisterActivity.this);
+                dialog.setCancelable(true);
+                dialog.setTitle("Register Error");
+                dialog.setMessage("Sorry. You must upload an image" );
+                dialog.setPositiveButton("OK !", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                final AlertDialog alert = dialog.create();
+                alert.show();
             }
         } else {
             String type = "register";

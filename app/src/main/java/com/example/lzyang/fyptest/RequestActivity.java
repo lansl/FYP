@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -43,14 +44,18 @@ public class RequestActivity extends AppCompatActivity {
     private EditText editText_description,editText_othertitle;
     private Spinner emergency_dropdown;
 
+    private static final int VIDEO_CAPTURE = 101;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     private String userChoosenTask;
+    private Uri fileUri;
 
     private LocationReceiver locationReceiver;
 
     private double[] GPS_location = new double[2];
 
     public static ProgressDialog mProgress;
+
+        double loc1, loc2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,8 +121,13 @@ public class RequestActivity extends AppCompatActivity {
             public void onClick(View view) {
                 locationReceiver.configureButton();
                 textViewCurrentLoc.setText("Longitude: " + GPS_location[0] + "\nLatitude: " + GPS_location[1]);
+                loc1 = GPS_location[0];
+                loc2 = GPS_location[1];
             }
         });
+
+        //This is for 1km//
+        //GPS_location[0] >= 101.7199 && GPS_location[0] <= 101.7390 && GPS_location[1] >= 3.2072 && GPS_location[1] <= 3.2253//
 
     }
 
@@ -136,6 +146,8 @@ public class RequestActivity extends AppCompatActivity {
                             cameraIntent();
                         else if(userChoosenTask.equals("Choose from Library"))
                             galleryIntent();
+                        else if(userChoosenTask.equals("Capture Video"))
+                            VideoIntent();
                     } else {
                         //code for deny
                     }
@@ -146,7 +158,7 @@ public class RequestActivity extends AppCompatActivity {
 //--------------------------------------------------------------------------------------------------------------------------------------------
     //Choose Image Or Capture Photo
     private void selectImage() {
-        final CharSequence[] items = { "Take Photo", "Choose from Library",
+        final CharSequence[] items = { "Take Photo", "Capture Video", "Choose from Library",
                 "Cancel" };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(RequestActivity.this);
@@ -157,9 +169,15 @@ public class RequestActivity extends AppCompatActivity {
                 boolean result=Utility.checkPermission(RequestActivity.this);
 
                 if (items[item].equals("Take Photo")) {
-                    userChoosenTask ="Take Photo";
-                    if(result)
+                    userChoosenTask = "Take Photo";
+                    if (result)
                         cameraIntent();
+
+                }
+                else if (items[item].equals("Capture Video")) {
+                    userChoosenTask ="Capture Video";
+                    if(result)
+                        VideoIntent();
 
                 } else if (items[item].equals("Choose from Library")) {
                     userChoosenTask ="Choose from Library";
@@ -186,6 +204,26 @@ public class RequestActivity extends AppCompatActivity {
     {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, REQUEST_CAMERA);
+
+    }
+
+    private void VideoIntent()
+    {
+        Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        startActivityForResult(intent, VIDEO_CAPTURE);
+    }
+
+    public void startRecording(View view){
+        File mediaFile =
+                new File(Environment.getExternalStorageDirectory().getAbsolutePath()
+                        + "/myvideo.mp4");
+
+        Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+
+        Uri videoUri = Uri.fromFile(mediaFile);
+
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri);
+        startActivityForResult(intent, VIDEO_CAPTURE);
     }
 
     @Override
@@ -197,6 +235,19 @@ public class RequestActivity extends AppCompatActivity {
                 onSelectFromGalleryResult(data);
             else if (requestCode == REQUEST_CAMERA)
                 onCaptureImageResult(data);
+        }
+
+        if (requestCode == VIDEO_CAPTURE) {
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(this, "Video saved to:\n" +
+                        data.getData(), Toast.LENGTH_LONG).show();
+            } else if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(this, "Video recording cancelled.",
+                        Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "Failed to record video",
+                        Toast.LENGTH_LONG).show();
+            }
         }
     }
 
