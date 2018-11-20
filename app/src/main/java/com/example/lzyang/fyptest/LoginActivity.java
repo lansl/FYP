@@ -19,6 +19,8 @@ import com.example.lzyang.fyptest.Database.BackgroundWorker;
  * Created by User on 30/10/2017.
  */
 
+// Hi
+
 public class LoginActivity extends AppCompatActivity implements AsyncResponse {
     EditText loginid, loginpassword;
     private boolean loggedIn = false;
