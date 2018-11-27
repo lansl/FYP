@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity
         GPS_location = locationReceiver.getGPSLocation();
 
 
-
 //Build Connection----------------------------------------------------------------------------------
         jobScheduler = JobScheduler.getInstance(this);
         jobInfo = new JobInfo.Builder(JOB_ID, new ComponentName(getPackageName(), MJobScheduler.class.getName()))
@@ -91,7 +90,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void checkLoc(){
-        do{
+
             //--------------------------------------------------------------------------------------------------
             locationReceiver = new LocationReceiver(this);
             locationReceiver.initGPSlocation();
@@ -110,8 +109,7 @@ public class MainActivity extends AppCompatActivity
                 emergencyCards_recyclerAdapter.setArrayList(emergencyCards_arrayList.get_arrayList());
             }
             emergencyCards_recyclerView.setAdapter(emergencyCards_recyclerAdapter);
-//        System.out.println("Run emergencyCards_recyclerView finished");
-        }while(GPS_location[0] >= 101.7199 && GPS_location[0] <= 101.7390 && GPS_location[1] >= 3.2072 && GPS_location[1] <= 3.2253);
+//        System.out.println("Run emergencyCards_recyclerView finished")
     }
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -216,7 +214,7 @@ public class MainActivity extends AppCompatActivity
         //Others
         //GPS_location[0] > 100.6109 && GPS_location[0] < 101.7290 && GPS_location[1] > 3.00 && GPS_location[1] < 3.2253//
 
-        if(GPS_location[0] > 100.6109 && GPS_location[0] < 101.7290 && GPS_location[1] > 3.00 && GPS_location[1] < 3.2253){
+        if(GPS_location[0] >= 101.7199 && GPS_location[0] <= 101.7390 && GPS_location[1] >= 3.2072 && GPS_location[1] <= 3.2253){
             //pass
             Intent intent = new Intent(this, RequestActivity.class);
             this.startActivity(intent);

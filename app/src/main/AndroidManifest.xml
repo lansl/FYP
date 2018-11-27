@@ -3,7 +3,7 @@
     package="com.example.lzyang.fyptest">
 
     <uses-sdk
-        android:minSdkVersion="21"
+        android:minSdkVersion="15"
         android:targetSdkVersion="24"
         android:maxSdkVersion="27"
         />

@@ -158,7 +158,7 @@ public class RequestActivity extends AppCompatActivity {
 //--------------------------------------------------------------------------------------------------------------------------------------------
     //Choose Image Or Capture Photo
     private void selectImage() {
-        final CharSequence[] items = { "Take Photo", "Capture Video", "Choose from Library",
+        final CharSequence[] items = { "Take Photo", "Choose from Library",
                 "Cancel" };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(RequestActivity.this);
@@ -174,12 +174,12 @@ public class RequestActivity extends AppCompatActivity {
                         cameraIntent();
 
                 }
-                else if (items[item].equals("Capture Video")) {
+                /*else if (items[item].equals("Capture Video")) {
                     userChoosenTask ="Capture Video";
                     if(result)
                         VideoIntent();
 
-                } else if (items[item].equals("Choose from Library")) {
+                } */else if (items[item].equals("Choose from Library")) {
                     userChoosenTask ="Choose from Library";
                     if(result)
                         galleryIntent();
