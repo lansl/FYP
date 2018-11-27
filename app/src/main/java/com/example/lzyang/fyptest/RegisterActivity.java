@@ -115,6 +115,23 @@ public class RegisterActivity extends AppCompatActivity implements AsyncResponse
                 final AlertDialog alert = dialog.create();
                 alert.show();
             }
+            else if (userid.matches("[a-zA-Z]+")) {
+                editid.requestFocus();
+                editid.setError("Enter only Numerical number");
+            }
+            else if (!username.matches("[a-zA-Z]+")){
+                editname.requestFocus();
+                editname.setError("Enter only Alphabetical Character");
+            }
+            else if (!userpass.matches("^(?=.*[0-9])(?=.*[a-z])(?=\\S+$).{4,}$"))
+            {
+                editpassword.requestFocus();
+                editpassword.setError("Must have at least 1 number and 1 character");
+            }
+            else if (contactNo.matches("^(?=.*[@#$%^&+=])$")) {
+                editid.requestFocus();
+                editid.setError("Enter only Numerical number");
+            }
         } else {
             String type = "register";
             BackgroundWorker backgroundWorker = new BackgroundWorker(this);
