@@ -83,6 +83,11 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse {
         view.getContext().startActivity(register_page);
     }
 
+    public void OnForgot(View view) {
+        Intent forgot_page = new Intent(view.getContext(), ResetPassword.class);
+        view.getContext().startActivity(forgot_page);
+    }
+
     public void OnExit(View v){
         finish();
         System.exit(0);
@@ -113,6 +118,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse {
             SharedPreferences.Editor editor = settings.edit();
             editor.putString("logged", "logged");
             editor.putString("userid",userid);
+            editor.putString("userpass", userpass);
             editor.commit();
 
             Toast.makeText(LoginActivity.this,userid,Toast.LENGTH_LONG).show();
@@ -132,7 +138,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncResponse {
 
                     dialog.dismiss();
 
-                    // today
+                    // asd
                     mProgress.dismiss();
                 }
             });

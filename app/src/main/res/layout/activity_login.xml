@@ -13,24 +13,24 @@
             android:id="@+id/imageView2"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            app:srcCompat="@drawable/ic_phone_call"
-            android:gravity="center"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:layout_marginTop="59dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:gravity="center"
+            app:srcCompat="@drawable/ic_phone_call" />
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/textInputLayout2"
             android:layout_width="276dp"
             android:layout_height="60dp"
-            app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/colorAccent"
-            android:gravity="center"
-            android:layout_gravity="center"
             android:layout_below="@+id/imageView2"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="26dp">
+            android:layout_gravity="center"
+            android:layout_marginTop="26dp"
+            android:gravity="center"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/colorAccent">
 
             <EditText
                 android:id="@+id/loginid"
@@ -53,23 +53,24 @@
             android:id="@+id/textInputLayout"
             android:layout_width="276dp"
             android:layout_height="60dp"
-            android:layout_marginTop="10dp"
-            app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/colorAccent"
-            android:gravity="center"
-            android:layout_gravity="center"
             android:layout_below="@+id/textInputLayout2"
+            android:layout_alignStart="@+id/textInputLayout2"
             android:layout_alignLeft="@+id/textInputLayout2"
-            android:layout_alignStart="@+id/textInputLayout2">
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/colorAccent">
 
 
             <EditText
                 android:id="@+id/loginpass"
                 android:layout_width="276dp"
                 android:layout_height="40dp"
-                android:layout_alignLeft="@+id/loginid"
-                android:layout_alignStart="@+id/loginid"
                 android:layout_below="@+id/loginid"
+                android:layout_alignStart="@+id/loginid"
+                android:layout_alignLeft="@+id/loginid"
+                android:layout_gravity="center"
                 android:layout_marginTop="14dp"
                 android:background="@drawable/edittext1"
                 android:drawablePadding="10dp"
@@ -77,19 +78,18 @@
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:paddingLeft="15dp"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:layout_gravity="center"/>
+                android:textAppearance="?android:attr/textAppearanceLarge" />
         </android.support.design.widget.TextInputLayout>
 
         <Button
             android:id="@+id/button"
             android:layout_width="276dp"
             android:layout_height="40dp"
-            android:layout_alignLeft="@+id/textInputLayout"
-            android:layout_alignStart="@+id/textInputLayout"
             android:layout_below="@+id/textInputLayout"
-            android:layout_marginTop="33dp"
+            android:layout_alignStart="@+id/textInputLayout"
+            android:layout_alignLeft="@+id/textInputLayout"
             android:layout_gravity="center"
+            android:layout_marginTop="33dp"
             android:background="#97EB0729"
             android:gravity="center"
             android:onClick="OnLogin"
@@ -101,13 +101,13 @@
             android:id="@+id/button2"
             android:layout_width="276dp"
             android:layout_height="40dp"
-            android:layout_alignEnd="@+id/button"
-            android:layout_alignLeft="@+id/button"
-            android:layout_alignRight="@+id/button"
-            android:layout_alignStart="@+id/button"
             android:layout_below="@+id/button"
-            android:layout_marginTop="23dp"
+            android:layout_alignStart="@+id/button"
+            android:layout_alignLeft="@+id/button"
+            android:layout_alignEnd="@+id/button"
+            android:layout_alignRight="@+id/button"
             android:layout_gravity="center"
+            android:layout_marginTop="23dp"
             android:background="#97EB0729"
             android:gravity="center"
             android:onClick="Onregister"
@@ -119,13 +119,13 @@
             android:id="@+id/button3"
             android:layout_width="276dp"
             android:layout_height="40dp"
-            android:layout_alignEnd="@+id/button2"
-            android:layout_alignLeft="@+id/button2"
-            android:layout_alignRight="@+id/button2"
-            android:layout_alignStart="@+id/button2"
             android:layout_below="@+id/button2"
-            android:layout_marginTop="23dp"
+            android:layout_alignStart="@+id/button2"
+            android:layout_alignLeft="@+id/button2"
+            android:layout_alignEnd="@+id/button2"
+            android:layout_alignRight="@+id/button2"
             android:layout_gravity="center"
+            android:layout_marginTop="23dp"
             android:layout_marginBottom="27dp"
             android:background="#97EB0729"
             android:gravity="center"
@@ -133,5 +133,25 @@
             android:text="Exit"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="276dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/button3"
+            android:layout_alignStart="@+id/button3"
+            android:layout_alignLeft="@+id/button3"
+            android:layout_alignEnd="@+id/button3"
+            android:layout_alignRight="@+id/button3"
+            android:layout_gravity="center"
+            android:layout_marginTop="23dp"
+            android:layout_marginBottom="27dp"
+            android:background="#97EB0729"
+            android:gravity="center"
+            android:onClick="OnForgot"
+            android:text="Forgot Password"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+
+
     </RelativeLayout>
 </LinearLayout>

@@ -10,4 +10,5 @@ public class UrlPhp_Database {
     public final static String retrieve2URL="https://unbloodied-heat.000webhostapp.com/connect/retrieve2.php";
     public final static String retrieveURL="https://unbloodied-heat.000webhostapp.com/connect/retrieve.php";
     public final static String publishURL="https://unbloodied-heat.000webhostapp.com/connect/publish.php";
+    public final static String updateURL="https://unbloodied-heat.000webhostapp.com/connect/update.php";
 }

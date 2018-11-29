@@ -31,7 +31,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String>{
     public AsyncResponse delegate = null;
     Context context;
     AlertDialog alertDialog;
-    String username,profileimage,userpass,contactNo;
+    String username,profileimage,userpass,contactNo, email;
     public static final String PREFS_NAME = "LoginPrefs";
 
     public BackgroundWorker(Context ctx) {
@@ -94,6 +94,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String>{
                         this.profileimage = jo.getString("profileImage");
                         this.userpass = jo.getString("userPass");
                         this.contactNo = jo.getString("contactNo");
+                        this.email = jo.getString("Email");
                     }
                 }
                 bufferedReader.close();
@@ -105,6 +106,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String>{
                 editor.putString("userpass", this.userpass);
                 editor.putString("profileimage", this.profileimage);
                 editor.putString("contactno", this.contactNo);
+                editor.putString("email", this.email);
                 editor.commit();
                 return result;
 
@@ -122,8 +124,9 @@ public class BackgroundWorker extends AsyncTask<String, Void, String>{
                 String userid = params[1];
                 String userpass = params[2];
                 String username = params[3];
-                String profileimage= params[4];
+                String profileimage = params[4];
                 String contact = params[5];
+                //String email = params[6];
 
                 URL url = new URL(insertURL);
                 HttpURLConnection httpUrlConnection = (HttpURLConnection) url.openConnection();
@@ -134,7 +137,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String>{
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
                 String post_data = URLEncoder.encode("userid", "UTF-8") + "=" + URLEncoder.encode(userid, "UTF-8") + "&"
                         + URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8") + "&"
-                        + URLEncoder.encode("userpass", "UTF-8") + "=" + URLEncoder.encode(userpass, "UTF-8")+ "&"
+                        + URLEncoder.encode("userpass", "UTF-8") + "=" + URLEncoder.encode(userpass, "UTF-8") + "&"
                         + URLEncoder.encode("profileimage", "UTF-8") + "=" + URLEncoder.encode(profileimage, "UTF-8") + "&"
                         + URLEncoder.encode("contact", "UTF-8") + "=" + URLEncoder.encode(contact, "UTF-8");
                 bufferedWriter.write(post_data);
@@ -158,7 +161,121 @@ public class BackgroundWorker extends AsyncTask<String, Void, String>{
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }else if (type.equals("update")) {
 
+            try {
+                String userid = params[1];
+                String userpass = params[2];
+                String username = params[3];
+                String contact = params[4];
+                //String email = params[6];
+
+                URL url = new URL(updateURL);
+                HttpURLConnection httpUrlConnection = (HttpURLConnection) url.openConnection();
+                httpUrlConnection.setRequestMethod("POST");
+                httpUrlConnection.setDoOutput(true);
+                httpUrlConnection.setDoInput(true);
+                OutputStream outputStream = httpUrlConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String post_data = URLEncoder.encode("userid", "UTF-8") + "=" + URLEncoder.encode(userid, "UTF-8") + "&"
+                        + URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8") + "&"
+                        + URLEncoder.encode("userpass", "UTF-8") + "=" + URLEncoder.encode(userpass, "UTF-8") + "&"
+                        + URLEncoder.encode("contact", "UTF-8") + "=" + URLEncoder.encode(contact, "UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+                InputStream inputStream = httpUrlConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader((new InputStreamReader(inputStream, "iso-8859-1")));
+                String result = "";
+                String line = "";
+                while ((line = bufferedReader.readLine()) != null) {
+                    result += line;
+                }
+                bufferedReader.close();
+                inputStream.close();
+                httpUrlConnection.disconnect();
+                return result;
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+//-----------------------------------------------------------------------------------------------------------------------------------
+            /*
+        } else if (type.equals("forgot_password")) {
+            try {
+                String email = params[1];
+                System.out.println(email);
+                URL url = new URL(login_URL);
+                HttpURLConnection httpUrlConnection = (HttpURLConnection) url.openConnection();
+                httpUrlConnection.setRequestMethod("POST");
+                httpUrlConnection.setDoOutput(true);
+                httpUrlConnection.setDoInput(true);
+                OutputStream outputStream = httpUrlConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String post_data = URLEncoder.encode("email", "UTF-8") + "=" + URLEncoder.encode(email, "UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+                InputStream inputStream = httpUrlConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader((new InputStreamReader(inputStream, "iso-8859-1")));
+                String result = "";
+                String line = "";
+                while ((line = bufferedReader.readLine()) != null) {
+                    result += line;
+                }
+
+
+                url = new URL(retrieve2URL);
+                httpUrlConnection = (HttpURLConnection) url.openConnection();
+                httpUrlConnection.setRequestMethod("POST");
+                httpUrlConnection.setDoOutput(true);
+                httpUrlConnection.setDoInput(true);
+                outputStream = httpUrlConnection.getOutputStream();
+                bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                post_data = URLEncoder.encode("userid", "UTF-8") + "=" + URLEncoder.encode(userid, "UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+                inputStream = httpUrlConnection.getInputStream();
+                bufferedReader = new BufferedReader((new InputStreamReader(inputStream, "iso-8859-1")));
+                while ((line = bufferedReader.readLine()) != null) {
+                    JSONArray ja = new JSONArray(line);
+
+                    for (int i = 0; i < ja.length(); i++) {
+                        JSONObject jo = (JSONObject) ja.get(i);
+                        this.username = jo.getString("userName");
+                        this.profileimage = jo.getString("profileImage");
+                        this.userpass = jo.getString("userPass");
+                        this.contactNo = jo.getString("contactNo");
+                        this.email = jo.getString("Email");
+                    }
+                }
+                bufferedReader.close();
+                inputStream.close();
+                httpUrlConnection.disconnect();
+                SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putString("username", this.username);
+                editor.putString("userpass", this.userpass);
+                editor.putString("profileimage", this.profileimage);
+                editor.putString("contactno", this.contactNo);
+                editor.putString("email", this.email);
+                editor.commit();
+                return result;
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+//--------------------------------------------------------------------------------------------------------------------*/
         }else if (type.equals("retrieve count")) {
             String done="done retrieve";
                 try {
@@ -193,7 +310,6 @@ public class BackgroundWorker extends AsyncTask<String, Void, String>{
                 }
 
         }else if (type.equals("publish")) {
-
             try {
                 String recordid = params[1];
                 String userid = params[2];

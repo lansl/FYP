@@ -15,7 +15,7 @@ import static com.example.lzyang.fyptest.Functions.Action.byteToBitmap;
 
 public class ProfileActivity extends AppCompatActivity {
     Button logout;
-    TextView profilename,profileid,contactNo;
+    TextView profilename,profileid,contactNo, Email;
 
     public static final String PREFS_NAME = "LoginPrefs";
     @Override
@@ -26,9 +26,11 @@ public class ProfileActivity extends AppCompatActivity {
         CircleImageView circleImageView = (CircleImageView)findViewById(R.id.profile_image);
         circleImageView.setImageResource(R.drawable.profile);
         logout = (Button) findViewById(R.id.logoutButton);
-        profilename = (TextView) findViewById(R.id.profile_name);
+        profilename = (TextView) findViewById(R.id.prof_name);
         profileid = (TextView) findViewById(R.id.profile_ID);
         contactNo = (TextView) findViewById(R.id.contact_no);
+        Email = (TextView) findViewById(R.id.email);
+
 
 
         SharedPreferences settings = getSharedPreferences(PREFS_NAME,0);
@@ -36,15 +38,22 @@ public class ProfileActivity extends AppCompatActivity {
         String username = settings.getString("username","");
         String profileimage = settings.getString("profileimage","");
         String contactno = settings.getString("contactno","");
+        String email = settings.getString("email", "");
 
         profileid.setText(userid.toString());
         profilename.setText(username.toString());
         contactNo.setText(contactno.toString());
+        Email.setText(email.toString());
 
         byte[] profile_image = Base64.decode(profileimage, Base64.DEFAULT);
 
         circleImageView.setImageBitmap(byteToBitmap(profile_image));
     }
+    public void onEdit(View v){
+        Intent edit_page = new Intent(v.getContext(), EditProfileActivity.class);
+        v.getContext().startActivity(edit_page);
+    }
+
     public void onLogout(View v){
         SharedPreferences preferences = getSharedPreferences(PREFS_NAME, 0);
         this.getSharedPreferences(PREFS_NAME, 0).edit().clear().commit();
