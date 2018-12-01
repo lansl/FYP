@@ -93,65 +93,58 @@ public class RegisterActivity extends AppCompatActivity implements AsyncResponse
         String img_bytes = Base64.encodeToString(getBytesFromBitmap(ess_inserted_image), Base64.DEFAULT);
 
 
-        if (userid.isEmpty() || userpass.isEmpty() || username.isEmpty() || insert_image.getDrawable() == null) {
+
+        if (userid.isEmpty() || userpass.isEmpty() || username.isEmpty()){
             if (userid.isEmpty()) {
                 editid.setError("Please fill up this");
             } else if (username.isEmpty()) {
                 editname.setError("Please fill up this");
             } else if (userpass.isEmpty()) {
                 editpassword.setError("Please fill up this");
-            } else if (insert_image.getDrawable() == null) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(RegisterActivity.this);
-                dialog.setCancelable(true);
-                dialog.setTitle("Register Error");
-                dialog.setMessage("Sorry. You must upload an image" );
-                dialog.setPositiveButton("OK !", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                final AlertDialog alert = dialog.create();
-                alert.show();
             }
-            else if (userid.matches("[a-zA-Z]+")) {
-                editid.requestFocus();
-                editid.setError("Enter only Numerical number");
-            }
-            else if (!username.matches("[a-zA-Z]+")){
-                editname.requestFocus();
-                editname.setError("Enter only Alphabetical Character");
-            }
-            else if (!userpass.matches("^(?=.*[0-9])(?=.*[a-z])(?=\\S+$).{4,}$"))
-            {
-                editpassword.requestFocus();
-                editpassword.setError("Must have at least 1 number and 1 character");
-            }
-            else if (contactNo.matches("^(?=.*[@#$%^&+=])$")) {
-                editContact.requestFocus();
-                editContact.setError("Enter only Numerical number");
-            }
-        } else {
+        }
+        else if (userid.matches("[a-zA-Z]+")) {
+            editid.requestFocus();
+            editid.setError("Enter only Numerical number");
+        }
+        else if (!username.matches("[a-zA-Z]+")){
+            editname.requestFocus();
+            editname.setError("Enter only Alphabetical Character");
+        }
+        else if (!userpass.matches("^(?=.*[0-9])(?=.*[a-z])(?=\\S+$).{4,}$"))
+        {
+            editpassword.requestFocus();
+            editpassword.setError("Must have at least 1 number and 1 character");
+        }
+        else if (contactNo.matches("^(?=.*[@#$%^&+=])$")) {
+            editid.requestFocus();
+            editid.setError("Enter only Numerical number");
+        }
+        else
+        {
             String type = "register";
             BackgroundWorker backgroundWorker = new BackgroundWorker(this);
             backgroundWorker.delegate= this;
             backgroundWorker.execute(type, userid, userpass, username,img_bytes,contactNo);
+
+
         }
+
 
     }
 
     @Override
     public void processFinish(String result) {
-        if(result.equals("Values have been inserted successfully")){
-            Toast success= Toast.makeText(RegisterActivity.this,"Successfully Registered",Toast.LENGTH_LONG);
+        if (result.equals("Values have been inserted successfully")) {
+            Toast success = Toast.makeText(RegisterActivity.this, "Successfully Registered", Toast.LENGTH_LONG);
             success.show();
             Intent login_page = new Intent(RegisterActivity.this, LoginActivity.class);
             startActivity(login_page);
-        }else{
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(RegisterActivity.this);
             dialog.setCancelable(true);
             dialog.setTitle("Register Error");
-            dialog.setMessage("Sorry we cant activity_register" );
+            dialog.setMessage("Sorry we cant register");
             dialog.setPositiveButton("OK !", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -162,8 +155,6 @@ public class RegisterActivity extends AppCompatActivity implements AsyncResponse
             alert.show();
 
         }
-
-
     }
 
 

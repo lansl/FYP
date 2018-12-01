@@ -94,7 +94,6 @@ public class BackgroundWorker extends AsyncTask<String, Void, String>{
                         this.profileimage = jo.getString("profileImage");
                         this.userpass = jo.getString("userPass");
                         this.contactNo = jo.getString("contactNo");
-                        this.email = jo.getString("Email");
                     }
                 }
                 bufferedReader.close();
@@ -106,7 +105,6 @@ public class BackgroundWorker extends AsyncTask<String, Void, String>{
                 editor.putString("userpass", this.userpass);
                 editor.putString("profileimage", this.profileimage);
                 editor.putString("contactno", this.contactNo);
-                editor.putString("email", this.email);
                 editor.commit();
                 return result;
 
