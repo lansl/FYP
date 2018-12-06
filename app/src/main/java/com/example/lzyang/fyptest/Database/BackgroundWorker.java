@@ -87,13 +87,13 @@ public class BackgroundWorker extends AsyncTask<String, Void, String>{
                 bufferedReader = new BufferedReader((new InputStreamReader(inputStream, "iso-8859-1")));
                 while ((line = bufferedReader.readLine()) != null) {
                     JSONArray ja = new JSONArray(line);
-
                     for (int i = 0; i < ja.length(); i++) {
                         JSONObject jo = (JSONObject) ja.get(i);
                         this.username = jo.getString("userName");
                         this.profileimage = jo.getString("profileImage");
                         this.userpass = jo.getString("userPass");
                         this.contactNo = jo.getString("contactNo");
+                        this.email = jo.getString("Email");
                     }
                 }
                 bufferedReader.close();
@@ -105,6 +105,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String>{
                 editor.putString("userpass", this.userpass);
                 editor.putString("profileimage", this.profileimage);
                 editor.putString("contactno", this.contactNo);
+                editor.putString("email", this.email);
                 editor.commit();
                 return result;
 
@@ -124,7 +125,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String>{
                 String username = params[3];
                 String profileimage = params[4];
                 String contact = params[5];
-                //String email = params[6];
+                String email = params[6];
 
                 URL url = new URL(insertURL);
                 HttpURLConnection httpUrlConnection = (HttpURLConnection) url.openConnection();
@@ -137,7 +138,8 @@ public class BackgroundWorker extends AsyncTask<String, Void, String>{
                         + URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8") + "&"
                         + URLEncoder.encode("userpass", "UTF-8") + "=" + URLEncoder.encode(userpass, "UTF-8") + "&"
                         + URLEncoder.encode("profileimage", "UTF-8") + "=" + URLEncoder.encode(profileimage, "UTF-8") + "&"
-                        + URLEncoder.encode("contact", "UTF-8") + "=" + URLEncoder.encode(contact, "UTF-8");
+                        + URLEncoder.encode("contact", "UTF-8") + "=" + URLEncoder.encode(contact, "UTF-8") + "&"
+                        + URLEncoder.encode("email", "UTF-8") + "=" + URLEncoder.encode(email, "UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
@@ -166,7 +168,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String>{
                 String userpass = params[2];
                 String username = params[3];
                 String contact = params[4];
-                //String email = params[6];
+                String email = params[5];
 
                 URL url = new URL(updateURL);
                 HttpURLConnection httpUrlConnection = (HttpURLConnection) url.openConnection();
@@ -178,7 +180,8 @@ public class BackgroundWorker extends AsyncTask<String, Void, String>{
                 String post_data = URLEncoder.encode("userid", "UTF-8") + "=" + URLEncoder.encode(userid, "UTF-8") + "&"
                         + URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8") + "&"
                         + URLEncoder.encode("userpass", "UTF-8") + "=" + URLEncoder.encode(userpass, "UTF-8") + "&"
-                        + URLEncoder.encode("contact", "UTF-8") + "=" + URLEncoder.encode(contact, "UTF-8");
+                        + URLEncoder.encode("contact", "UTF-8") + "=" + URLEncoder.encode(contact, "UTF-8") + "&"
+                        + URLEncoder.encode("email", "UTF-8") + "=" + URLEncoder.encode(email, "UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();

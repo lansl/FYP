@@ -36,6 +36,7 @@ public class EditProfileActivity extends AppCompatActivity implements AsyncRespo
         prof_contact = (EditText) findViewById(R.id.prof_contact);
         prof_pass = (EditText) findViewById(R.id.prof_pass);
         prof_id = (TextView) findViewById(R.id.prof_id);
+        prof_email = (EditText) findViewById(R.id.prof_email);
 
         SharedPreferences sharePrefS = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE);
         //prof_name.setText(sharePrefS.getString("Username",""));
@@ -47,11 +48,13 @@ public class EditProfileActivity extends AppCompatActivity implements AsyncRespo
         String userpass = sharePrefS.getString("userpass","");
         String username = sharePrefS.getString("username","");
         String contactno = sharePrefS.getString("contactno","");
+        String email = sharePrefS.getString("email","");
 
         prof_id.setText(userid.toString());
         prof_name.setText(username.toString());
         prof_contact.setText(contactno.toString());
         prof_pass.setText(userpass.toString());
+        prof_email.setText(email.toString());
 
     }
 
@@ -61,9 +64,9 @@ public class EditProfileActivity extends AppCompatActivity implements AsyncRespo
         String username = prof_name.getText().toString();
         String userpass = prof_pass.getText().toString();
         String contactNo = prof_contact.getText().toString();
-        //String email = prof_email.getText().toString();
+        String email = prof_email.getText().toString();
 
-        if (userpass.isEmpty() || username.isEmpty() || contactNo.isEmpty()) {
+        if (userpass.isEmpty() || username.isEmpty() || contactNo.isEmpty() || email.isEmpty()) {
             if (username.isEmpty()) {
                 prof_name.setError("Please fill up this");
             } else if (userpass.isEmpty()) {
@@ -84,13 +87,17 @@ public class EditProfileActivity extends AppCompatActivity implements AsyncRespo
                 prof_contact.requestFocus();
                 prof_contact.setError("Enter only Numerical number");
             }
+            else if (email.matches("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")) {
+                prof_contact.requestFocus();
+                prof_contact.setError("Enter a valid email");
+            }
 
         } else {
 
             String type = "update";
             BackgroundWorker backgroundWorker = new BackgroundWorker(this);
             backgroundWorker.delegate= this;
-            backgroundWorker.execute(type, userid, userpass, username,contactNo);
+            backgroundWorker.execute(type, userid, userpass, username,contactNo, email);
 
 
         }

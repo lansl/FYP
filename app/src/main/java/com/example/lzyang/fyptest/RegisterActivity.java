@@ -52,6 +52,7 @@ public class RegisterActivity extends AppCompatActivity implements AsyncResponse
         editname = (EditText) findViewById(R.id.editName);
         editpassword = (EditText) findViewById(R.id.editPass);
         editContact =(EditText) findViewById(R.id.editTextCotact);
+        editEmail = (EditText)findViewById(R.id.editTextEmail);
         //editEmail = (EditText)findViewById(R.id.editTextEmail);
         insert_image = (ImageButton) findViewById(R.id.insert_image);
         insert_image.setOnClickListener(new View.OnClickListener() {
@@ -88,19 +89,21 @@ public class RegisterActivity extends AppCompatActivity implements AsyncResponse
         String username = editname.getText().toString();
         String userpass = editpassword.getText().toString();
         String contactNo = editContact.getText().toString();
-        //String email = editEmail.getText().toString();
+        String email = editEmail.getText().toString();
         Bitmap ess_inserted_image = getImageToBitmap();
         String img_bytes = Base64.encodeToString(getBytesFromBitmap(ess_inserted_image), Base64.DEFAULT);
 
 
 
-        if (userid.isEmpty() || userpass.isEmpty() || username.isEmpty()){
+        if (userid.isEmpty() || userpass.isEmpty() || username.isEmpty()|| email.isEmpty()){
             if (userid.isEmpty()) {
                 editid.setError("Please fill up this");
             } else if (username.isEmpty()) {
                 editname.setError("Please fill up this");
             } else if (userpass.isEmpty()) {
                 editpassword.setError("Please fill up this");
+            }else if (email.isEmpty()) {
+                editEmail.setError("Please fill up this");
             }
         }
         else if (userid.matches("[a-zA-Z]+")) {
@@ -117,19 +120,21 @@ public class RegisterActivity extends AppCompatActivity implements AsyncResponse
             editpassword.setError("Must have at least 1 number and 1 character");
         }
         else if (contactNo.matches("^(?=.*[@#$%^&+=])$")) {
-            editid.requestFocus();
-            editid.setError("Enter only Numerical number");
+            editContact.requestFocus();
+            editContact.setError("Enter only Numerical number");
+        }
+        else if (email.matches("^(?=.*[@#$%^&+=])$")) {
+            editEmail.requestFocus();
+            editEmail.setError("Enter only Numerical number");
         }
         else
         {
             String type = "register";
             BackgroundWorker backgroundWorker = new BackgroundWorker(this);
             backgroundWorker.delegate= this;
-            backgroundWorker.execute(type, userid, userpass, username,img_bytes,contactNo);
-
+            backgroundWorker.execute(type, userid, userpass, username,img_bytes,contactNo, email);
 
         }
-
 
     }
 
